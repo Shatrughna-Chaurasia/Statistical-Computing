@@ -1,0 +1,25 @@
+ellipse = function(a,b)
+{
+accept = 0
+count = 0
+while(accept==0)
+{
+  count = count +1 
+  x = runif(1,-sqrt(a),sqrt(a))
+  y = runif(1,-sqrt(b),sqrt(b))
+  if(((x^2)/a) + ((y^2)/b)<=1)
+  {
+    accept = 1
+    return(c(x,y,count))
+  }
+ }
+}
+
+x = y = array(0)
+for(i in 1:1000)
+{
+  t = ellipse(a = 169 , b = 25)
+  x[i] = t[1]
+  y[i] = t[2]
+}
+plot(x , y)
