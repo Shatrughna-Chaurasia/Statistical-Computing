@@ -1,0 +1,31 @@
+mu <- c(-5, 10)
+Sigma <- matrix(c(1, .5, .5, 1), nrow = 2, ncol = 2)
+decomp <- eigen(Sigma)
+# eigenvectors
+decomp$vectors
+decomp$values
+decomp$vectors %*% diag(decomp$values) %*% solve(decomp$vectors)
+Sig.sq <- decomp$vectors %*% diag(decomp$values^(1/2)) %*% solve(decomp$vectors)
+Sig.sq
+Z <- rnorm(2) # Z
+X = mu + Sig.sq %*% Z
+X
+multinorm <- function(mu, rho, N = 5e2)
+{
+  Sigma <- matrix(c(1, rho, rho, 1), nrow = 2, ncol = 2)
+   decomp<-eigen(sigma)
+   rho = 0.5
+   Sig.sq <- decomp$vectors %*% diag(decomp$values^(1/2)) %*% solve(decomp$vectors)
+  samples <- matrix(0, nrow = N, ncol = 2)
+  for(i in 1:N)
+  {
+   z<- rnorm(2)
+    samples[i, ] <- mu + Sig.sq%*%z
+  }
+  return(samples)
+}
+plot(multinorm(mu,rho,N))
+par(mfrow = c(1,1))
+samp1 <- multinorm(mu = c(-5,10))
+plot(samp1, xlab = "X_1", ylab = "X_2", asp = 1)
+
